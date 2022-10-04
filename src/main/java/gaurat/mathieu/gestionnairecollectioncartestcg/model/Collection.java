@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "COLLECTION")
 @AssociationOverrides({
-@AssociationOverride(name = "pk.user", joinColumns = @JoinColumn(name = "ID_USER")),
-@AssociationOverride(name = "pk.game", joinColumns = @JoinColumn(name = "ID_GAME"))
+@AssociationOverride(name = "user", joinColumns = @JoinColumn(name = "ID_USER")),
+@AssociationOverride(name = "game", joinColumns = @JoinColumn(name = "ID_GAME"))
 })
 public class Collection {
 
@@ -68,7 +68,7 @@ public class Collection {
 		this.game = game;
 	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.collection", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "collection", cascade = CascadeType.ALL)
 	public Set<CardCopies> getCardCopies() {
 		return cardCopies;
 	}

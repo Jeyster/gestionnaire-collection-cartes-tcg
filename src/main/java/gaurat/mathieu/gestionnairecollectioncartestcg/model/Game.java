@@ -42,7 +42,7 @@ public class Game {
 		this.name = name;
 	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.game", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game", cascade = CascadeType.ALL)
 	public Set<Card> getCards() {
 		return cards;
 	}
@@ -51,7 +51,7 @@ public class Game {
 		this.cards = cards;
 	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.game", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game", cascade = CascadeType.ALL)
 	public Set<Collection> getCollections() {
 		return collections;
 	}

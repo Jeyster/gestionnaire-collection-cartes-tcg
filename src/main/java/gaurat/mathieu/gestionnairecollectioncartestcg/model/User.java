@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User {
 	
 	private Integer idUser;
@@ -80,7 +80,7 @@ public class User {
 		this.password = password;
 	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	public Set<Collection> getCollections() {
 		return collections;
 	}

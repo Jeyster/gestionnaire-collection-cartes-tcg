@@ -14,8 +14,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CARD_COPIES")
 @AssociationOverrides({
-@AssociationOverride(name = "pk.card", joinColumns = @JoinColumn(name = "ID_CARD")),
-@AssociationOverride(name = "pk.collection", joinColumns = @JoinColumn(name = "ID_COLLECTION"))
+@AssociationOverride(name = "card", joinColumns = @JoinColumn(name = "ID_CARD")),
+@AssociationOverride(name = "collection", joinColumns = @JoinColumn(name = "ID_COLLECTION"))
 })
 public class CardCopies {
 	
