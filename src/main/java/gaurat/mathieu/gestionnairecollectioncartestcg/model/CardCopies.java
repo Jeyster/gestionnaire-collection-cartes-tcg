@@ -23,8 +23,10 @@ public class CardCopies {
 	private Card card;
 	private Collection collection;
 	
+	public CardCopies() {
+	}
+	
 	public CardCopies(Integer idCardCopies, Card card, Collection collection) {
-		super();
 		this.idCardCopies = idCardCopies;
 		this.card = card;
 		this.collection = collection;

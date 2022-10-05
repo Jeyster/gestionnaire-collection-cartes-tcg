@@ -6,7 +6,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +24,7 @@ public class CardRestController {
     private CardServiceImpl cardService;
     
     /**
-     * Retourne le client ayant l'adresse email passée en paramètre.
+     * Retourne les cartes d'un jeu.
      * @param gameName
      * @return
      */
@@ -37,8 +36,7 @@ public class CardRestController {
     }
 
     /**
-     * Retourne le client ayant l'adresse email passée en paramètre.
-     * @param gameName
+     * Retourne toutes les cartes.
      * @return
      */
     @GetMapping("/all")

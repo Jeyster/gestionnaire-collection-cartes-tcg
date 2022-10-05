@@ -24,8 +24,10 @@ public class User {
 	
 	private Set<Collection> collections;
 	
+	public User() {
+	}
+	
 	public User(Integer idUser, String name, String forname, String login, String password) {
-		super();
 		this.idUser = idUser;
 		this.name = name;
 		this.forname = forname;

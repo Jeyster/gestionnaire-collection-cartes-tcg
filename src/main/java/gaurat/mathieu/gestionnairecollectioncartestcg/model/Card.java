@@ -29,8 +29,10 @@ public class Card {
 	
 	private Set<CardCopies> cardCopies;
 	
+	public Card( ) {
+	}
+	
 	public Card(Integer idCard, Game game, String name) {
-		super();
 		this.idCard = idCard;
 		this.game = game;
 		this.name = name;
@@ -47,6 +49,7 @@ public class Card {
 		this.idCard = idCard;
 	}
 
+	
     @ManyToOne(optional = false)
     @JoinColumn(name = "ID_GAME", referencedColumnName = "ID_GAME")
 	public Game getGame() {

@@ -30,8 +30,10 @@ public class Collection {
 	
 	private Set<CardCopies> cardCopies;
 	
+	public Collection() {
+	}
+	
 	public Collection(Integer idCollection, User user, Game game) {
-		super();
 		this.idCollection = idCollection;
 		this.user = user;
 		this.game = game;
