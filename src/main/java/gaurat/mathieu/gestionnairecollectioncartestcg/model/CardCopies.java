@@ -22,6 +22,7 @@ public class CardCopies {
 	private Integer idCardCopies;
 	private Card card;
 	private Collection collection;
+	private Integer copiesNumber;
 	
 	public CardCopies() {
 	}
@@ -61,6 +62,15 @@ public class CardCopies {
 
 	public void setCollection(Collection collection) {
 		this.collection = collection;
+	}
+
+	@Column(name = "COPIES_NUMBER")
+	public Integer getCopiesNumber() {
+		return copiesNumber;
+	}
+
+	public void setCopiesNumber(Integer copiesNumber) {
+		this.copiesNumber = copiesNumber;
 	}
 
 }

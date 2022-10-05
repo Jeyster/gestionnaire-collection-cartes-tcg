@@ -30,7 +30,6 @@ public class CardRestController {
      */
     @GetMapping("/searchByGame")
     public void searchCardsByGame(@RequestParam("game") String gameName) {
-        //, UriComponentsBuilder uriComponentBuilder
         Set<Card> cards = cardService.getCardsByGame(gameName);
         System.out.println(cards);
     }
@@ -41,7 +40,6 @@ public class CardRestController {
      */
     @GetMapping("/all")
     public void getAll() {
-        //, UriComponentsBuilder uriComponentBuilder
         List<Card> cards = cardService.getCards();
         System.out.println(cards);
     }

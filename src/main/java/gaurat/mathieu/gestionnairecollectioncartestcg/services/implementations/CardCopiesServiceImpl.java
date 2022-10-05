@@ -1,5 +1,6 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.services.implementations;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,10 @@ public class CardCopiesServiceImpl implements ICardCopiesService {
 	@Override
 	public Set<CardCopies> getCardCopiesByCollection(Integer idCollection) {
 		return cardCopiesDao.findByCollection(idCollection);
+	}
+
+	public List<CardCopies> getCardCopies() {
+		return cardCopiesDao.findAll();
 	}
 
 }
