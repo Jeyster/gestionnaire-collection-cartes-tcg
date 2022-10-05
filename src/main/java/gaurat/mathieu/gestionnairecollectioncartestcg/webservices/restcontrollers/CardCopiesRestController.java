@@ -1,4 +1,4 @@
-package gaurat.mathieu.gestionnairecollectioncartestcg.restcontrollers;
+package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.CardCopies;
-import gaurat.mathieu.gestionnairecollectioncartestcg.services.implementations.CardCopiesServiceImpl;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardCopiesServiceImpl;
 
 @RestController
 @RequestMapping("/rest/cardCopies/api")

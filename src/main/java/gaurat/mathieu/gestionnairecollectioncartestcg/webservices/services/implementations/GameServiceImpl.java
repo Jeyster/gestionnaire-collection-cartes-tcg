@@ -1,4 +1,4 @@
-package gaurat.mathieu.gestionnairecollectioncartestcg.services.implementations;
+package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.dao.IGameDao;
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Game;
-import gaurat.mathieu.gestionnairecollectioncartestcg.services.interfaces.IGameService;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.interfaces.IGameService;
 
 @Service("gameService")
 @Transactional

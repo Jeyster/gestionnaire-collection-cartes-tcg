@@ -1,4 +1,4 @@
-package gaurat.mathieu.gestionnairecollectioncartestcg.services.interfaces;
+package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.interfaces;
 
 import java.util.List;
 import java.util.Set;
