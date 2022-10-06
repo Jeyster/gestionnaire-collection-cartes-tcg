@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Game;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.GameDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.GameServiceImpl;
 
 @RestController
 @RequestMapping("/rest/game/api")
-public class GameRestController implements IDtoToEntityMapping<GameDTO, Game> {
+public class GameRestController implements IDTOToEntityMapping<GameDTO, Game> {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     

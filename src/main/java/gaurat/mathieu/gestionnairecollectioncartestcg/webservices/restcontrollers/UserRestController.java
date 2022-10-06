@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.User;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.UserDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.UserServiceImpl;
 
 @RestController
 @RequestMapping("/rest/user/api")
-public class UserRestController implements IDtoToEntityMapping<UserDTO, User> {
+public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     

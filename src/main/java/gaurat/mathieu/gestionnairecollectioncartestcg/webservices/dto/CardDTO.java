@@ -1,5 +1,7 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto;
 
+import java.util.Objects;
+
 public class CardDTO {
 	
 	private String gameName;
@@ -22,4 +24,16 @@ public class CardDTO {
 		this.name = name;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CardDTO other = (CardDTO) obj;
+		return Objects.equals(gameName, other.gameName) && Objects.equals(name, other.name);
+	}
+	
 }

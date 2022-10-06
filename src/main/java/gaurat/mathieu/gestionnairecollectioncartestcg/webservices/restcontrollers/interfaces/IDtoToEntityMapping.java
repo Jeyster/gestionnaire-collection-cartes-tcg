@@ -13,7 +13,7 @@ import org.modelmapper.ModelMapper;
  * @param <S>
  * @param <T>
  */
-public interface IDtoToEntityMapping<S, T> {
+public interface IDTOToEntityMapping<S, T> {
 	
     /**
      * Entity to POJO DTO conversion

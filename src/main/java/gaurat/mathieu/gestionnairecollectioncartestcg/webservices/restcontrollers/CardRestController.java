@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Card;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.CardDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/rest/card/api")
 @Api(value = "Card Rest Controller: contains all operations for managing cards")
-public class CardRestController implements IDtoToEntityMapping<CardDTO, Card> {
+public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
