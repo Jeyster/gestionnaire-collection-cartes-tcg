@@ -1,7 +1,6 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -25,7 +24,7 @@ public class CardServiceImpl implements ICardService {
 	}
 
 	@Override
-	public Set<Card> getCardsByGame(String gameName) {
+	public List<Card> getCardsByGame(String gameName) {
 		return cardDao.findByGame(gameName);
 	}
 

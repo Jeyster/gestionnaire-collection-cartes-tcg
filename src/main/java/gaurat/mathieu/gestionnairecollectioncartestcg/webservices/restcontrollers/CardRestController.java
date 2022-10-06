@@ -2,7 +2,6 @@ package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrolle
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -35,6 +34,32 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
     private CardServiceImpl cardService;
     
     /**
+     * Get all cards.
+     * 
+     * @return
+     */
+    @GetMapping("/all")
+    @ApiOperation(value = "Get all cards from all games", response = CardDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
+    		@ApiResponse(code = 204, message = "No Content: no result founded") })
+    public ResponseEntity<List<CardDTO>> getAll() {
+    	List<Card> cards = cardService.getCards();
+    	
+    	if (!cards.isEmpty()) {
+    		CardDTO cardDto;
+    		List<CardDTO> cardsDto = new ArrayList<>();
+    		for (Card card : cards) {
+    			cardDto = mapEntityToDTO(card, CardDTO.class);
+    			cardsDto.add(cardDto);
+    		}
+    		
+    		return ResponseEntity.ok(cardsDto);
+    	}
+    	
+    	return ResponseEntity.noContent().build();
+    }
+    
+    /**
      * Get all cards from a game.
      * 
      * @param gameName
@@ -45,7 +70,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
             @ApiResponse(code = 204, message = "No Content: no result founded") })
     @GetMapping("/searchByGame")
     public ResponseEntity<List<CardDTO>> searchCardsByGame(@RequestParam("game") String gameName) {
-        Set<Card> cards = cardService.getCardsByGame(gameName);
+        List<Card> cards = cardService.getCardsByGame(gameName);
         if (!cards.isEmpty()) {
         	CardDTO cardDto;
         	List<CardDTO> cardsDto = new ArrayList<>();
@@ -58,32 +83,6 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
         }
 
         return ResponseEntity.noContent().build();    }
-
-    /**
-     * Get all cards.
-     * 
-     * @return
-     */
-    @GetMapping("/all")
-    @ApiOperation(value = "Get all cards from all games", response = CardDTO.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
-            @ApiResponse(code = 204, message = "No Content: no result founded") })
-    public ResponseEntity<List<CardDTO>> getAll() {
-        List<Card> cards = cardService.getCards();
-
-        if (!cards.isEmpty()) {
-        	CardDTO cardDto;
-        	List<CardDTO> cardsDto = new ArrayList<>();
-        	for (Card card : cards) {
-        		cardDto = mapEntityToDTO(card, CardDTO.class);
-        		cardsDto.add(cardDto);
-        	}
-        	
-        	return ResponseEntity.ok(cardsDto);
-        }
-
-        return ResponseEntity.noContent().build();
-    }
 
     /**
      * Adding rule to map the Game property.
