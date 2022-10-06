@@ -18,9 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Card;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.CardDTO;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/rest/card/api")
+@Api(value = "Card Rest Controller: contains all operations for managing cards")
 public class CardRestController {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
@@ -33,6 +38,9 @@ public class CardRestController {
      * @param gameName
      * @return
      */
+    @ApiOperation(value = "Get all cards from a game", response = CardDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
+            @ApiResponse(code = 204, message = "No Content: no result founded") })
     @GetMapping("/searchByGame")
     public ResponseEntity<List<CardDTO>> searchCardsByGame(@RequestParam("game") String gameName) {
         Set<Card> cards = cardService.getCardsByGame(gameName);
@@ -54,6 +62,9 @@ public class CardRestController {
      * @return
      */
     @GetMapping("/all")
+    @ApiOperation(value = "Get all cards from all games", response = CardDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
+            @ApiResponse(code = 204, message = "No Content: no result founded") })
     public ResponseEntity<List<CardDTO>> getAll() {
         List<Card> cards = cardService.getCards();
 
@@ -70,22 +81,6 @@ public class CardRestController {
 
         return ResponseEntity.noContent().build();
     }
-    
-//    /**
-//     * Retourne le client ayant l'adresse email passée en paramètre.
-//     * @param gameName
-//     * @return
-//     */
-//    @GetMapping("/searchByGame")
-//    public ResponseEntity<Set<CardDTO>> searchCardsByGame(@RequestParam("game") String gameName) {
-//        //, UriComponentsBuilder uriComponentBuilder
-//        Set<Card> cards = cardService.getCardsByGame(gameName);
-//        if (cards != null) {
-//        	CardDTO cardDTO = mapCustomerToCustomerDTO(cards);
-//            return new ResponseEntity<CustomerDTO>(cardDTO, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<CustomerDTO>(HttpStatus.NO_CONTENT);
-//    }
     
     /**
      * Transforme un entity Card en un POJO CardDTO
