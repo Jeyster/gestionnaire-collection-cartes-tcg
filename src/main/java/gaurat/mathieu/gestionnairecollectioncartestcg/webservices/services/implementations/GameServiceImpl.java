@@ -16,10 +16,10 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.inter
 public class GameServiceImpl implements IGameService {
 	
 	@Autowired
-	private IGameDao gameDao;
+	private IGameDao dao;
 
 	public List<Game> getGames() {
-		return gameDao.findAll();
+		return dao.findAll();
 	}
 	
 }

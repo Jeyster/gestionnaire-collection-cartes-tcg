@@ -30,10 +30,10 @@ class TestCardRestController {
 	private static final String CARD3_NAME = "card3Name";
 	
 	@Mock
-	private CardServiceImpl cardService;
+	private CardServiceImpl service;
 	
 	@InjectMocks
-	private CardRestController cardRestController;
+	private CardRestController restController;
 	
 	private static Game game1;
 	private static Game game2;
@@ -85,8 +85,7 @@ class TestCardRestController {
 	@Test
 	@DisplayName("mapEntityToDTO : Card is converted in CardDTO")
 	void testMapEntityToDTO_conversionOk() {	
-		CardRestController cardRestController = new CardRestController();
-		CardDTO cardDTO = cardRestController.mapEntityToDTO(card1, CardDTO.class);
+		CardDTO cardDTO = restController.mapEntityToDTO(card1, CardDTO.class);
 		assertEquals(cardDTO1, cardDTO);
 	}
 	
@@ -94,32 +93,32 @@ class TestCardRestController {
 	@DisplayName("getAll : get all Card and returns OK")
 	void testGetAll_returnsAllCardsOk() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.ok(cardsDTO);
-		Mockito.when(cardService.getCards()).thenReturn(cardsList);
-		assertEquals(responseExpected, cardRestController.getAll());
+		Mockito.when(service.getCards()).thenReturn(cardsList);
+		assertEquals(responseExpected, restController.getAll());
 	}
 	
 	@Test
 	@DisplayName("getAll : get no Card and returns NO CONTENT")
 	void testGetAll_returnsNoCardKo() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.noContent().build();
-		Mockito.when(cardService.getCards()).thenReturn(new ArrayList<>());
-		assertEquals(responseExpected, cardRestController.getAll());
+		Mockito.when(service.getCards()).thenReturn(new ArrayList<>());
+		assertEquals(responseExpected, restController.getAll());
 	}
 	
 	@Test
 	@DisplayName("searchCardsByGame : get all Card from a Game and returns OK")
 	void testSearchCardsByGame_returnsAllCardsOk() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.ok(cardsDTO);
-		Mockito.when(cardService.getCardsByGame(GAME1_NAME)).thenReturn(cardsList);
-		assertEquals(responseExpected, cardRestController.searchCardsByGame(GAME1_NAME));
+		Mockito.when(service.getCardsByGame(GAME1_NAME)).thenReturn(cardsList);
+		assertEquals(responseExpected, restController.searchCardsByGame(GAME1_NAME));
 	}
 	
 	@Test
 	@DisplayName("searchCardsByGame : get no Card and returns NO CONTENT")
 	void testSearchCardsByGame_returnsNoCardKo() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.noContent().build();
-		Mockito.when(cardService.getCardsByGame(GAME1_NAME)).thenReturn(new ArrayList<>());
-		assertEquals(responseExpected, cardRestController.searchCardsByGame(GAME1_NAME));
+		Mockito.when(service.getCardsByGame(GAME1_NAME)).thenReturn(new ArrayList<>());
+		assertEquals(responseExpected, restController.searchCardsByGame(GAME1_NAME));
 	}
 
 }

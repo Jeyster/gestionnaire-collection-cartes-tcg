@@ -16,10 +16,10 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.inter
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	private IUserDao userDao;
+	private IUserDao dao;
 
 	public List<User> getUsers() {
-		return userDao.findAll();
+		return dao.findAll();
 	}
 	
 }

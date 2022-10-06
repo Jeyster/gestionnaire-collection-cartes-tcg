@@ -16,16 +16,16 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.inter
 public class CardServiceImpl implements ICardService {
 	
 	@Autowired
-	private ICardDao cardDao;
+	private ICardDao dao;
 	
 	@Override
 	public List<Card> getCards() {
-		return cardDao.findAll();
+		return dao.findAll();
 	}
 
 	@Override
 	public List<Card> getCardsByGame(String gameName) {
-		return cardDao.findByGame(gameName);
+		return dao.findByGame(gameName);
 	}
 
 }

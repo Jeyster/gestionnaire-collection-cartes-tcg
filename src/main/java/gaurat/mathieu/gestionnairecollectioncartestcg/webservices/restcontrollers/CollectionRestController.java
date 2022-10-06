@@ -19,7 +19,7 @@ public class CollectionRestController {
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
     @Autowired
-    private CollectionServiceImpl collectionService;
+    private CollectionServiceImpl service;
 
     /**
      * Retourne toutes les collections.
@@ -27,7 +27,7 @@ public class CollectionRestController {
      */
     @GetMapping("/all")
     public void getAll() {
-        List<Collection> collections = collectionService.getCollections();
+        List<Collection> collections = service.getCollections();
         System.out.println(collections);
     }
 }

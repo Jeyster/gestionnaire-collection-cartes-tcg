@@ -1,5 +1,7 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto;
 
+import java.util.Objects;
+
 public class UserDTO {
 
 	private String name;
@@ -37,6 +39,19 @@ public class UserDTO {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDTO other = (UserDTO) obj;
+		return Objects.equals(forname, other.forname) && Objects.equals(login, other.login)
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password);
 	}
 	
 }

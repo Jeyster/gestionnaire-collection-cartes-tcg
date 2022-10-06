@@ -23,7 +23,7 @@ public class GameRestController implements IDTOToEntityMapping<GameDTO, Game> {
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
     @Autowired
-    private GameServiceImpl gameService;
+    private GameServiceImpl service;
     
     /**
      * Get all games.
@@ -31,7 +31,7 @@ public class GameRestController implements IDTOToEntityMapping<GameDTO, Game> {
      */
     @GetMapping("/all")
     public ResponseEntity<List<GameDTO>> getAll() {
-        List<Game> games = gameService.getGames();
+        List<Game> games = service.getGames();
         
         if (!games.isEmpty()) {
         	GameDTO gameDto;

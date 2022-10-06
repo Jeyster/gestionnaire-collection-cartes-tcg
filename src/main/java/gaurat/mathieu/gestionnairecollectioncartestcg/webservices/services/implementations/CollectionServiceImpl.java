@@ -16,10 +16,10 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.inter
 public class CollectionServiceImpl implements ICollectionService {
 	
 	@Autowired
-	private ICollectionDao collectionDao;
+	private ICollectionDao dao;
 
 	public List<Collection> getCollections() {
-		return collectionDao.findAll();
+		return dao.findAll();
 	}
 
 }

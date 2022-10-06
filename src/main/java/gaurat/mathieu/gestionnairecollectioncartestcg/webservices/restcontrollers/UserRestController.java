@@ -23,7 +23,7 @@ public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
     @Autowired
-    private UserServiceImpl userService;
+    private UserServiceImpl service;
 
     /**
      * Get all users.
@@ -31,7 +31,7 @@ public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
      */
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAll() {
-        List<User> users = userService.getUsers();
+        List<User> users = service.getUsers();
         if (!users.isEmpty()) {
         	UserDTO userDto;
         	List<UserDTO> usersDto = new ArrayList<>();

@@ -31,7 +31,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
     @Autowired
-    private CardServiceImpl cardService;
+    private CardServiceImpl service;
     
     /**
      * Get all cards.
@@ -43,7 +43,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
     		@ApiResponse(code = 204, message = "No Content: no result founded") })
     public ResponseEntity<List<CardDTO>> getAll() {
-    	List<Card> cards = cardService.getCards();
+    	List<Card> cards = service.getCards();
     	
     	if (!cards.isEmpty()) {
     		CardDTO cardDto;
@@ -70,7 +70,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
             @ApiResponse(code = 204, message = "No Content: no result founded") })
     @GetMapping("/searchByGame")
     public ResponseEntity<List<CardDTO>> searchCardsByGame(@RequestParam("game") String gameName) {
-        List<Card> cards = cardService.getCardsByGame(gameName);
+        List<Card> cards = service.getCardsByGame(gameName);
         if (!cards.isEmpty()) {
         	CardDTO cardDto;
         	List<CardDTO> cardsDto = new ArrayList<>();

@@ -16,16 +16,16 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.inter
 public class CardCopiesServiceImpl implements ICardCopiesService {
 	
 	@Autowired
-	private ICardCopiesDao cardCopiesDao;
+	private ICardCopiesDao dao;
 
 	@Override
 	public List<CardCopies> getCardCopiesByCollection(Integer idCollection) {
-		return cardCopiesDao.findByCollection(idCollection);
+		return dao.findByCollection(idCollection);
 	}
 
 	@Override
 	public List<CardCopies> getCardCopies() {
-		return cardCopiesDao.findAll();
+		return dao.findAll();
 	}
 
 }

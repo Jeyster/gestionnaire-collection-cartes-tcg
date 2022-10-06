@@ -19,7 +19,7 @@ public class CardCopiesRestController {
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
     @Autowired
-    private CardCopiesServiceImpl cardCopiesService;
+    private CardCopiesServiceImpl service;
 
     /**
      * Retourne toutes les card copies.
@@ -27,7 +27,7 @@ public class CardCopiesRestController {
      */
     @GetMapping("/all")
     public void getAll() {
-        List<CardCopies> cardCopies = cardCopiesService.getCardCopies();
+        List<CardCopies> cardCopies = service.getCardCopies();
         System.out.println(cardCopies);
     }
 }
