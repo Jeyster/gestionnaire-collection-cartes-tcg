@@ -34,10 +34,20 @@ public class CardRestController {
      * @return
      */
     @GetMapping("/searchByGame")
-    public void searchCardsByGame(@RequestParam("game") String gameName) {
+    public ResponseEntity<List<CardDTO>> searchCardsByGame(@RequestParam("game") String gameName) {
         Set<Card> cards = cardService.getCardsByGame(gameName);
-        System.out.println(cards);
-    }
+        if (!cards.isEmpty()) {
+        	CardDTO cardDto;
+        	List<CardDTO> cardsDto = new ArrayList<>();
+        	for (Card card : cards) {
+        		cardDto = mapCardToCardDTO(card);
+        		cardsDto.add(cardDto);
+        	}
+        	
+        	return ResponseEntity.ok(cardsDto);
+        }
+
+        return ResponseEntity.noContent().build();    }
 
     /**
      * Retourne toutes les cartes.
