@@ -3,7 +3,6 @@ package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrolle
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.User;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.UserDTO;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.UserServiceImpl;
 
 @RestController
 @RequestMapping("/rest/user/api")
-public class UserRestController {
+public class UserRestController implements IDtoToEntityMapping<UserDTO, User> {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -26,7 +26,7 @@ public class UserRestController {
     private UserServiceImpl userService;
 
     /**
-     * Retourne tous les users.
+     * Get all users.
      * @return
      */
     @GetMapping("/all")
@@ -36,7 +36,7 @@ public class UserRestController {
         	UserDTO userDto;
         	List<UserDTO> usersDto = new ArrayList<>();
         	for (User user : users) {
-        		userDto = mapUserToUserDTO(user);
+        		userDto = mapEntityToDTO(user, UserDTO.class);
         		usersDto.add(userDto);
         	}
         	
@@ -46,9 +46,4 @@ public class UserRestController {
         return ResponseEntity.noContent().build();    
     }
 
-	private UserDTO mapUserToUserDTO(User user) {
-		ModelMapper mapper = new ModelMapper();
-		UserDTO userDTO = mapper.map(user, UserDTO.class);
-		return userDTO;
-	}
 }

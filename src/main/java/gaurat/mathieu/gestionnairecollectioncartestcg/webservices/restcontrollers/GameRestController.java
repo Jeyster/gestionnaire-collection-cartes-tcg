@@ -3,7 +3,6 @@ package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrolle
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Game;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.GameDTO;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.GameServiceImpl;
 
 @RestController
 @RequestMapping("/rest/game/api")
-public class GameRestController {
+public class GameRestController implements IDtoToEntityMapping<GameDTO, Game> {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -26,7 +26,7 @@ public class GameRestController {
     private GameServiceImpl gameService;
     
     /**
-     * Retourne tous les jeux.
+     * Get all games.
      * @return
      */
     @GetMapping("/all")
@@ -37,7 +37,7 @@ public class GameRestController {
         	GameDTO gameDto;
         	List<GameDTO> gamesDto = new ArrayList<>();
         	for (Game game : games) {
-        		gameDto = mapGameToGameDTO(game);
+        		gameDto = mapEntityToDTO(game, GameDTO.class);
         		gamesDto.add(gameDto);
         	}
         	
@@ -47,9 +47,4 @@ public class GameRestController {
         return ResponseEntity.noContent().build();        
     }
 
-	private GameDTO mapGameToGameDTO(Game game) {
-        ModelMapper mapper = new ModelMapper();
-        GameDTO gameDTO = mapper.map(game, GameDTO.class);
-        return gameDTO;
-	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Card;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.CardDTO;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDtoToEntityMapping;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +27,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/rest/card/api")
 @Api(value = "Card Rest Controller: contains all operations for managing cards")
-public class CardRestController {
+public class CardRestController implements IDtoToEntityMapping<CardDTO, Card> {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -34,7 +35,8 @@ public class CardRestController {
     private CardServiceImpl cardService;
     
     /**
-     * Retourne les cartes d'un jeu.
+     * Get all cards from a game.
+     * 
      * @param gameName
      * @return
      */
@@ -48,7 +50,7 @@ public class CardRestController {
         	CardDTO cardDto;
         	List<CardDTO> cardsDto = new ArrayList<>();
         	for (Card card : cards) {
-        		cardDto = mapCardToCardDTO(card);
+        		cardDto = mapEntityToDTO(card, CardDTO.class);
         		cardsDto.add(cardDto);
         	}
         	
@@ -58,7 +60,8 @@ public class CardRestController {
         return ResponseEntity.noContent().build();    }
 
     /**
-     * Retourne toutes les cartes.
+     * Get all cards.
+     * 
      * @return
      */
     @GetMapping("/all")
@@ -72,7 +75,7 @@ public class CardRestController {
         	CardDTO cardDto;
         	List<CardDTO> cardsDto = new ArrayList<>();
         	for (Card card : cards) {
-        		cardDto = mapCardToCardDTO(card);
+        		cardDto = mapEntityToDTO(card, CardDTO.class);
         		cardsDto.add(cardDto);
         	}
         	
@@ -81,31 +84,14 @@ public class CardRestController {
 
         return ResponseEntity.noContent().build();
     }
-    
-    /**
-     * Transforme un entity Card en un POJO CardDTO
-     * 
-     * @param card
-     * @return
-     */
-    private CardDTO mapCardToCardDTO(Card card) {
-        ModelMapper mapper = new ModelMapper();
-        TypeMap<Card, CardDTO> propertyMapper = mapper.createTypeMap(Card.class, CardDTO.class);
-        propertyMapper.addMapping(src -> src.getGame().getName(), CardDTO::setGameName);
-        CardDTO cardDTO = mapper.map (card, CardDTO.class);
-        return cardDTO;
-    }
 
-	/**
-     * Transforme un POJO CardDTO en en entity Card
-     * 
-     * @param cardDTO
-     * @return
+    /**
+     * Adding rule to map the Game property.
      */
-    private Card mapCardDTOToCard(CardDTO cardDTO) {
-        ModelMapper mapper = new ModelMapper();
-        Card card = mapper.map(cardDTO, Card.class);
-        return card;
-    }
+	@Override
+	public void addMappingsToTypeMap(ModelMapper mapper) {
+        TypeMap<Card, CardDTO> propertyMapper = mapper.createTypeMap(Card.class, CardDTO.class);
+        propertyMapper.addMapping(src -> src.getGame().getName(), CardDTO::setGameName);		
+	}
 
 }
