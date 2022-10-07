@@ -82,13 +82,14 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
         	return ResponseEntity.ok(cardsDto);
         }
 
-        return ResponseEntity.noContent().build();    }
+        return ResponseEntity.noContent().build();    
+    }
 
     /**
      * Adding rule to map the Game property.
      */
 	@Override
-	public void addMappingsToTypeMap(ModelMapper mapper) {
+	public void addMappingsToTypeMapForEntityToDTO(ModelMapper mapper) {
         TypeMap<Card, CardDTO> propertyMapper = mapper.createTypeMap(Card.class, CardDTO.class);
         propertyMapper.addMapping(src -> src.getGame().getName(), CardDTO::setGameName);		
 	}

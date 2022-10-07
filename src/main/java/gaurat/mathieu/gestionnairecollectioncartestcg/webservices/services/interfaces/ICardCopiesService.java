@@ -6,8 +6,14 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.model.CardCopies;
 
 public interface ICardCopiesService {
 	
-	public List<CardCopies> getCardCopiesByCollection(Integer idCollection);
+	public List<CardCopies> getCardsCopiesByCollection(Integer idCollection);
 	
-	public List<CardCopies> getCardCopies();
-
+	public List<CardCopies> getCardsCopies();
+	
+	public CardCopies getCardCopies(Integer idCard, Integer idCollection);
+	
+	public CardCopies saveCardCopies(CardCopies cardCopiesRequest);
+	
+	public CardCopies updateCardCopies(CardCopies cardCopiesRequest);
+	
 }

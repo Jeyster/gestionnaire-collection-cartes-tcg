@@ -19,4 +19,13 @@ public interface ICardCopiesDao extends JpaRepository<CardCopies, Integer> {
           )
     public List<CardCopies> findByCollection(@Param("idCollection") Integer idCollection);
     
+    @Query("SELECT cc "
+            + "FROM CardCopies cc "
+            + "INNER JOIN cc.collection col "
+            + "INNER JOIN cc.card card "
+            + "WHERE col.idCollection = :idCollection "
+            + "AND card.idCard = :idCard"
+          )
+    public CardCopies getCardCopies(@Param("idCard") Integer idCard, @Param("idCollection") Integer idCollection);
+    
 }

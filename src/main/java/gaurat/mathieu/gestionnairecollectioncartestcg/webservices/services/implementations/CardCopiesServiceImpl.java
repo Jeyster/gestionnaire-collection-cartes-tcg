@@ -19,13 +19,28 @@ public class CardCopiesServiceImpl implements ICardCopiesService {
 	private ICardCopiesDao dao;
 
 	@Override
-	public List<CardCopies> getCardCopiesByCollection(Integer idCollection) {
+	public List<CardCopies> getCardsCopiesByCollection(Integer idCollection) {
 		return dao.findByCollection(idCollection);
 	}
 
 	@Override
-	public List<CardCopies> getCardCopies() {
+	public List<CardCopies> getCardsCopies() {
 		return dao.findAll();
+	}
+
+	@Override
+	public CardCopies getCardCopies(Integer idCard, Integer idCollection) {
+		return dao.getCardCopies(idCard, idCollection);
+	}
+
+	@Override
+	public CardCopies saveCardCopies(CardCopies cardCopiesRequest) {
+		return dao.save(cardCopiesRequest);
+	}
+
+	@Override
+	public CardCopies updateCardCopies(CardCopies cardCopiesRequest) {
+		return dao.save(cardCopiesRequest);
 	}
 
 }

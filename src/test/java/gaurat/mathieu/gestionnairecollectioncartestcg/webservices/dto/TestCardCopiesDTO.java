@@ -13,8 +13,6 @@ class TestCardCopiesDTO {
 	private static final Integer CARD2_ID = 2;
 	private static final Integer COLLECTION1_ID = 1;
 	private static final Integer COLLECTION2_ID = 2;
-	private static final Integer CARD_COPIES1_ID = 1;
-	private static final Integer CARD_COPIES2_ID = 2;
 	private static final Integer CARD_COPIES_NUMBER4 = 4;
 	private static final Integer CARD_COPIES_NUMBER3 = 3;
 	
@@ -23,7 +21,6 @@ class TestCardCopiesDTO {
 	@BeforeAll
 	static void beforeAll() {	
 		cardCopiesDTO1 = new CardCopiesDTO();
-		cardCopiesDTO1.setIdCardCopies(CARD_COPIES1_ID);
 		cardCopiesDTO1.setIdCollection(COLLECTION1_ID);
 		cardCopiesDTO1.setIdCard(CARD1_ID);
 		cardCopiesDTO1.setCopiesNumber(CARD_COPIES_NUMBER4);		
@@ -51,7 +48,6 @@ class TestCardCopiesDTO {
 	@DisplayName("Test equals() entre 2 objets avec même attributs")
 	void testEquals_objectsWithSameAttributes() {	
 		CardCopiesDTO cardCopiesDTO2 = new CardCopiesDTO();
-		cardCopiesDTO2.setIdCardCopies(CARD_COPIES1_ID);
 		cardCopiesDTO2.setIdCollection(COLLECTION1_ID);
 		cardCopiesDTO2.setIdCard(CARD1_ID);
 		cardCopiesDTO2.setCopiesNumber(CARD_COPIES_NUMBER4);	
@@ -61,35 +57,25 @@ class TestCardCopiesDTO {
 	
 	@Test
 	@DisplayName("Test equals() entre 2 objets avec différents attributs")
-	void testEquals_objectsWithDifferentAttributes() {
+	void testEquals_objectsWithDifferentAttributes() {	
 		CardCopiesDTO cardCopiesDTO2 = new CardCopiesDTO();
-		cardCopiesDTO2.setIdCardCopies(CARD_COPIES2_ID);
-		cardCopiesDTO2.setIdCollection(COLLECTION1_ID);
+		cardCopiesDTO2.setIdCollection(COLLECTION2_ID);
 		cardCopiesDTO2.setIdCard(CARD1_ID);
 		cardCopiesDTO2.setCopiesNumber(CARD_COPIES_NUMBER4);
 		
 		CardCopiesDTO cardCopiesDTO3 = new CardCopiesDTO();
-		cardCopiesDTO3.setIdCardCopies(CARD_COPIES1_ID);
-		cardCopiesDTO3.setIdCollection(COLLECTION2_ID);
-		cardCopiesDTO3.setIdCard(CARD1_ID);
+		cardCopiesDTO3.setIdCollection(COLLECTION1_ID);
+		cardCopiesDTO3.setIdCard(CARD2_ID);
 		cardCopiesDTO3.setCopiesNumber(CARD_COPIES_NUMBER4);
 		
 		CardCopiesDTO cardCopiesDTO4 = new CardCopiesDTO();
-		cardCopiesDTO4.setIdCardCopies(CARD_COPIES1_ID);
 		cardCopiesDTO4.setIdCollection(COLLECTION1_ID);
-		cardCopiesDTO4.setIdCard(CARD2_ID);
-		cardCopiesDTO4.setCopiesNumber(CARD_COPIES_NUMBER4);
-		
-		CardCopiesDTO cardCopiesDTO5 = new CardCopiesDTO();
-		cardCopiesDTO5.setIdCardCopies(CARD_COPIES1_ID);
-		cardCopiesDTO5.setIdCollection(COLLECTION1_ID);
-		cardCopiesDTO5.setIdCard(CARD1_ID);
-		cardCopiesDTO5.setCopiesNumber(CARD_COPIES_NUMBER3);
+		cardCopiesDTO4.setIdCard(CARD1_ID);
+		cardCopiesDTO4.setCopiesNumber(CARD_COPIES_NUMBER3);
 		
 		assertFalse(cardCopiesDTO1.equals(cardCopiesDTO2));
 		assertFalse(cardCopiesDTO1.equals(cardCopiesDTO3));
 		assertFalse(cardCopiesDTO1.equals(cardCopiesDTO4));
-		assertFalse(cardCopiesDTO1.equals(cardCopiesDTO5));
 	}
 
 }

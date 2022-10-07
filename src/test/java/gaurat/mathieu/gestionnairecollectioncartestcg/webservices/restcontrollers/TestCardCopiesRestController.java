@@ -107,7 +107,7 @@ class TestCardCopiesRestController {
 	@DisplayName("getAll : get all CardCopies and returns OK")
 	void testGetAll_returnsAllCardCopiesOk() {
 		ResponseEntity<List<CardCopiesDTO>> responseExpected = ResponseEntity.ok(cardsCopiesDTO);
-		Mockito.when(service.getCardCopies()).thenReturn(cardsCopies);
+		Mockito.when(service.getCardsCopies()).thenReturn(cardsCopies);
 		assertEquals(responseExpected, restController.getAll());
 	}
 	
@@ -115,7 +115,7 @@ class TestCardCopiesRestController {
 	@DisplayName("getAll : get no CardCopies and returns NO CONTENT")
 	void testGetAll_returnsNoCardCopiesKo() {
 		ResponseEntity<List<CardCopiesDTO>> responseExpected = ResponseEntity.noContent().build();
-		Mockito.when(service.getCardCopies()).thenReturn(new ArrayList<>());
+		Mockito.when(service.getCardsCopies()).thenReturn(new ArrayList<>());
 		assertEquals(responseExpected, restController.getAll());
 	}
 

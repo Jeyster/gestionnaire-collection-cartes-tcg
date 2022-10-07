@@ -23,7 +23,7 @@ public interface IDTOToEntityMapping<S, T> {
      */
     public default S mapEntityToDTO(T entity, Class<S> dtoClass) {
         ModelMapper mapper = new ModelMapper();
-        addMappingsToTypeMap(mapper);
+        addMappingsToTypeMapForEntityToDTO(mapper);
         S dto = mapper.map(entity, dtoClass);
         return dto;
     }
@@ -36,7 +36,7 @@ public interface IDTOToEntityMapping<S, T> {
      */
     public default T mapDTOToEntity(S dto, Class<T> entityClass) {
         ModelMapper mapper = new ModelMapper();
-        addMappingsToTypeMap(mapper);
+        addMappingsToTypeMapForDTOToEntity(mapper);
         T entity = mapper.map(dto, entityClass);
         return entity;
     }
@@ -46,7 +46,17 @@ public interface IDTOToEntityMapping<S, T> {
      *  
      * @param mapper
      */
-    public default void addMappingsToTypeMap(ModelMapper mapper) {
+    public default void addMappingsToTypeMapForEntityToDTO(ModelMapper mapper) {
+    	
+    }
+    
+    
+    /**
+     * Adding rules for mapping
+     *  
+     * @param mapper
+     */
+    public default void addMappingsToTypeMapForDTOToEntity(ModelMapper mapper) {
     	
     }
 

@@ -4,18 +4,9 @@ import java.util.Objects;
 
 public class CardCopiesDTO {
 	
-	private Integer idCardCopies;
 	private Integer idCard;
 	private Integer idCollection;
 	private Integer copiesNumber;
-	
-	public Integer getIdCardCopies() {
-		return idCardCopies;
-	}
-	
-	public void setIdCardCopies(Integer idCardCopies) {
-		this.idCardCopies = idCardCopies;
-	}
 	
 	public Integer getIdCard() {
 		return idCard;
@@ -51,7 +42,7 @@ public class CardCopiesDTO {
 			return false;
 		CardCopiesDTO other = (CardCopiesDTO) obj;
 		return Objects.equals(copiesNumber, other.copiesNumber) && Objects.equals(idCard, other.idCard)
-				&& Objects.equals(idCardCopies, other.idCardCopies) && Objects.equals(idCollection, other.idCollection);
+				&& Objects.equals(idCollection, other.idCollection);
 	}
 	
 }
