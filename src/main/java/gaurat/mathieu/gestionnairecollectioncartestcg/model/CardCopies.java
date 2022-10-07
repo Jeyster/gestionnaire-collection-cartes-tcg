@@ -1,5 +1,7 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.model;
 
+import java.util.Objects;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -73,4 +75,17 @@ public class CardCopies {
 		this.copiesNumber = copiesNumber;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CardCopies other = (CardCopies) obj;
+		return Objects.equals(card, other.card) && Objects.equals(collection, other.collection)
+				&& Objects.equals(copiesNumber, other.copiesNumber) && Objects.equals(idCardCopies, other.idCardCopies);
+	}
+	
 }

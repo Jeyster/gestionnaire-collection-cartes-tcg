@@ -1,5 +1,6 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.AssociationOverride;
@@ -76,6 +77,19 @@ public class Card {
 
 	public void setCardCopies(Set<CardCopies> cardCopies) {
 		this.cardCopies = cardCopies;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		return Objects.equals(game, other.game)
+				&& Objects.equals(idCard, other.idCard) && Objects.equals(name, other.name);
 	}
 
 }

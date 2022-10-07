@@ -1,5 +1,6 @@
 package gaurat.mathieu.gestionnairecollectioncartestcg.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -78,6 +79,19 @@ public class User {
 
 	public void setCollections(Set<Collection> collections) {
 		this.collections = collections;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(forname, other.forname)
+				&& Objects.equals(idUser, other.idUser) && Objects.equals(name, other.name);
 	}
 	
 }

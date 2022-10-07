@@ -1,4 +1,4 @@
-package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto;
+package gaurat.mathieu.gestionnairecollectioncartestcg.model;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,61 +7,63 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class TestCardDTO {
+class TestGame {
+
+	private static final Integer GAME1_ID = 1;
+	private static final Integer GAME2_ID = 2;
+	private static final String GAME1_NAME = "Game1 Name";
+	private static final String GAME2_NAME = "Game2 Name";
 	
-	private static final String GAME_NAME = "gameName";
-	private static final String CARD_NAME = "cardName";
-	
-	private static CardDTO cardDTO1;
+	private static Game game1;
 	
 	@BeforeAll
 	static void beforeAll() {
-		cardDTO1 = new CardDTO();
-		cardDTO1.setGameName(GAME_NAME);
-		cardDTO1.setName(CARD_NAME);
+		game1 = new Game();
+		game1.setIdGame(GAME1_ID);
+		game1.setName(GAME1_NAME);
 	}
 
 	@Test
 	@DisplayName("Test equals() entre un objet et lui-même")
 	void testEquals_sameObject() {
-		assertTrue(cardDTO1.equals(cardDTO1));
+		assertTrue(game1.equals(game1));
 	}
 	
 	@Test
 	@DisplayName("Test equals() entre un objet et null")
 	void testEquals_nullObject() {
-		assertFalse(cardDTO1.equals(null));
+		assertFalse(game1.equals(null));
 	}
 	
 	@Test
 	@DisplayName("Test equals() entre un objet et un objet d'une autre classe")
 	void testEquals_otherClass() {
-		assertFalse(cardDTO1.equals(new Object()));
+		assertFalse(game1.equals(new Object()));
 	}
 	
 	@Test
 	@DisplayName("Test equals() entre 2 objets avec même attributs")
 	void testEquals_objectsWithSameAttributes() {	
-		CardDTO cardDTO2 = new CardDTO();
-		cardDTO2.setGameName(GAME_NAME);
-		cardDTO2.setName(CARD_NAME);
+		Game game2 = new Game();
+		game2.setIdGame(GAME1_ID);
+		game2.setName(GAME1_NAME);	
 		
-		assertTrue(cardDTO1.equals(cardDTO2));
+		assertTrue(game1.equals(game2));
 	}
 	
 	@Test
 	@DisplayName("Test equals() entre 2 objets avec différents attributs")
 	void testEquals_objectsWithDifferentAttributes() {
-		CardDTO cardDTO2 = new CardDTO();
-		cardDTO2.setGameName(GAME_NAME);
-		cardDTO2.setName("toto");
+		Game game2 = new Game();
+		game2.setIdGame(GAME2_ID);
+		game2.setName(GAME1_NAME);
 		
-		CardDTO cardDTO3 = new CardDTO();
-		cardDTO3.setGameName("toto");
-		cardDTO3.setName(CARD_NAME);
+		Game game3 = new Game();
+		game3.setIdGame(GAME1_ID);
+		game3.setName(GAME2_NAME);
 		
-		assertFalse(cardDTO1.equals(cardDTO2));
-		assertFalse(cardDTO1.equals(cardDTO3));
+		assertFalse(game1.equals(game2));
+		assertFalse(game1.equals(game3));
 	}
 
 }
