@@ -6,8 +6,7 @@ public class UserDTO {
 
 	private String name;
 	private String forname;
-	private String login;
-	private String password;
+	private String email;
 	
 	public String getName() {
 		return name;
@@ -25,20 +24,12 @@ public class UserDTO {
 		this.forname = forname;
 	}
 	
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
@@ -50,8 +41,8 @@ public class UserDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDTO other = (UserDTO) obj;
-		return Objects.equals(forname, other.forname) && Objects.equals(login, other.login)
-				&& Objects.equals(name, other.name) && Objects.equals(password, other.password);
+		return Objects.equals(forname, other.forname) && Objects.equals(email, other.email)
+				&& Objects.equals(name, other.name);
 	}
 	
 }

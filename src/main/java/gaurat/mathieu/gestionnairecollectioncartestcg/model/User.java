@@ -19,20 +19,18 @@ public class User {
 	private Integer idUser;
 	private String name;
 	private String forname;
-	private String login;
-	private String password;
+	private String email;
 	
 	private Set<Collection> collections;
 	
 	public User() {
 	}
 	
-	public User(Integer idUser, String name, String forname, String login, String password) {
+	public User(Integer idUser, String name, String forname, String email) {
 		this.idUser = idUser;
 		this.name = name;
 		this.forname = forname;
-		this.login = login;
-		this.password = password;
+		this.email = email;
 	}
 
 	@Id
@@ -64,22 +62,13 @@ public class User {
 		this.forname = forname;
 	}
 
-	@Column(name = "LOGIN")
-	public String getLogin() {
-		return login;
+	@Column(name = "EMAIL")
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	@Column(name = "PASSWORD")
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)

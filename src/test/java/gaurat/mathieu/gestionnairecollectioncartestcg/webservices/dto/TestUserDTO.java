@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Test;
 
 class TestUserDTO {
 
-	private static final String NAME = "name";
-	private static final String FORNAME = "forname";
-	private static final String LOGIN = "login";
-	private static final String PASSWORD = "password";
+	private static final String NAME = "Name";
+	private static final String FORNAME = "Forname";
+	private static final String EMAIL = "Email";
 	
 	private static UserDTO userDTO1;
 	
@@ -20,8 +19,7 @@ class TestUserDTO {
 		userDTO1 = new UserDTO();
 		userDTO1.setName(NAME);
 		userDTO1.setForname(FORNAME);
-		userDTO1.setLogin(LOGIN);
-		userDTO1.setPassword(PASSWORD);
+		userDTO1.setEmail(EMAIL);
 	}
 
 	@Test
@@ -48,8 +46,7 @@ class TestUserDTO {
 		UserDTO userDTO2 = new UserDTO();
 		userDTO2.setName(NAME);
 		userDTO2.setForname(FORNAME);
-		userDTO2.setLogin(LOGIN);
-		userDTO2.setPassword(PASSWORD);
+		userDTO2.setEmail(EMAIL);
 		
 		assertTrue(userDTO1.equals(userDTO2));
 	}
@@ -60,8 +57,7 @@ class TestUserDTO {
 		UserDTO userDTO2 = new UserDTO();
 		userDTO2.setName(NAME);
 		userDTO2.setForname("toto");
-		userDTO2.setLogin(LOGIN);
-		userDTO2.setPassword(PASSWORD);
+		userDTO2.setEmail(EMAIL);
 		
 		assertFalse(userDTO1.equals(userDTO2));
 	}

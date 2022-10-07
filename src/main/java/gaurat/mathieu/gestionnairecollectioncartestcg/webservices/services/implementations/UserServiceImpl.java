@@ -18,8 +18,19 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private IUserDao dao;
 
+	@Override
 	public List<User> getUsers() {
 		return dao.findAll();
+	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		return dao.findByEmail(email);
+	}
+
+	@Override
+	public User saveUser(User userRequest) {
+		return dao.save(userRequest);
 	}
 	
 }

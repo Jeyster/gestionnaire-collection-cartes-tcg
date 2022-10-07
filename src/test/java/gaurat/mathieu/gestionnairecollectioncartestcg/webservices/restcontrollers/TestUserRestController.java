@@ -17,6 +17,10 @@ import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.imple
 @ExtendWith(MockitoExtension.class)
 class TestUserRestController {
 	
+	private static final String NAME = "Name";
+	private static final String FORNAME = "Forname";
+	private static final String EMAIL = "Email";
+	
 	@Mock
 	private UserServiceImpl service;
 	
@@ -29,16 +33,14 @@ class TestUserRestController {
 	@BeforeAll
 	private static void beforeAll() {
 		user = new User();
-		user.setForname("Mathieu");
-		user.setName("Gaurat");
-		user.setLogin("login");
-		user.setPassword("password");
+		user.setName(NAME);
+		user.setForname(FORNAME);
+		user.setEmail(EMAIL);
 		
 		userDTO = new UserDTO();
-		userDTO.setForname("Mathieu");
-		userDTO.setName("Gaurat");
-		userDTO.setLogin("login");
-		userDTO.setPassword("password");
+		userDTO.setName(NAME);
+		userDTO.setForname(FORNAME);
+		userDTO.setEmail(EMAIL);
 	}
 
 	@Test
