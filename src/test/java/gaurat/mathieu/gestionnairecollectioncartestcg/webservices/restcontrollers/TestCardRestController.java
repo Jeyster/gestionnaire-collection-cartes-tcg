@@ -40,7 +40,7 @@ class TestCardRestController {
 	private static Card card1;
 	private static Card card2;
 	private static Card card3;
-	private static List<Card> cardsList;
+	private static List<Card> cards;
 	private static CardDTO cardDTO1;
 	private static CardDTO cardDTO2;
 	private static CardDTO cardDTO3;
@@ -62,10 +62,10 @@ class TestCardRestController {
 		card3 = new Card();
 		card3.setGame(game2);
 		card3.setName(CARD3_NAME);
-		cardsList = new ArrayList<>();
-		cardsList.add(card1);
-		cardsList.add(card2);
-		cardsList.add(card3);
+		cards = new ArrayList<>();
+		cards.add(card1);
+		cards.add(card2);
+		cards.add(card3);
 		
 		cardDTO1 = new CardDTO();
 		cardDTO1.setGameName(GAME1_NAME);
@@ -93,7 +93,7 @@ class TestCardRestController {
 	@DisplayName("getAll : get all Card and returns OK")
 	void testGetAll_returnsAllCardsOk() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.ok(cardsDTO);
-		Mockito.when(service.getCards()).thenReturn(cardsList);
+		Mockito.when(service.getCards()).thenReturn(cards);
 		assertEquals(responseExpected, restController.getAll());
 	}
 	
@@ -109,7 +109,7 @@ class TestCardRestController {
 	@DisplayName("searchCardsByGame : get all Card from a Game and returns OK")
 	void testSearchCardsByGame_returnsAllCardsOk() {
 		ResponseEntity<List<CardDTO>> responseExpected = ResponseEntity.ok(cardsDTO);
-		Mockito.when(service.getCardsByGame(GAME1_NAME)).thenReturn(cardsList);
+		Mockito.when(service.getCardsByGame(GAME1_NAME)).thenReturn(cards);
 		assertEquals(responseExpected, restController.searchCardsByGame(GAME1_NAME));
 	}
 	
