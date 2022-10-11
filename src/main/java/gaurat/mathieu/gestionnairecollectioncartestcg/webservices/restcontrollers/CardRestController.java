@@ -89,7 +89,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
      * Adding rule to map the Game property.
      */
 	@Override
-	public void addMappingsToTypeMapForEntityToDTO(ModelMapper mapper) {
+	public void addMappingsToTypeMap(ModelMapper mapper) {
         TypeMap<Card, CardDTO> propertyMapper = mapper.createTypeMap(Card.class, CardDTO.class);
         propertyMapper.addMapping(src -> src.getGame().getName(), CardDTO::setGameName);		
 	}

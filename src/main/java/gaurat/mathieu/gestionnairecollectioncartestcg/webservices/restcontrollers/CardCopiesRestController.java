@@ -98,23 +98,16 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
     
     /**
      * Adding rule to map the CardCopies property.
+     * - Entity to DTO -> Ids for the DTO come from the entity Card and Collection
+     * - DTO to Entity -> do not let Mapper to set idCardCopies of a new instance
      */
 	@Override
-	public void addMappingsToTypeMapForEntityToDTO(ModelMapper mapper) {
-        TypeMap<CardCopies, CardCopiesDTO> propertyMapper = mapper.createTypeMap(CardCopies.class, CardCopiesDTO.class);
-        propertyMapper.addMapping(src -> src.getCard().getIdCard(), CardCopiesDTO::setIdCard);		
-        propertyMapper.addMapping(src -> src.getCollection().getIdCollection(), CardCopiesDTO::setIdCollection);		
+	public void addMappingsToTypeMap(ModelMapper mapper) {
+        TypeMap<CardCopies, CardCopiesDTO> propertyMapperEntityToDTO = mapper.createTypeMap(CardCopies.class, CardCopiesDTO.class);
+        propertyMapperEntityToDTO.addMapping(src -> src.getCard().getIdCard(), CardCopiesDTO::setIdCard);		
+        propertyMapperEntityToDTO.addMapping(src -> src.getCollection().getIdCollection(), CardCopiesDTO::setIdCollection);	
+        TypeMap<CardCopiesDTO, CardCopies> propertyMapperDTOToEntity = mapper.createTypeMap(CardCopiesDTO.class, CardCopies.class);
+        propertyMapperDTOToEntity.addMappings(map -> map.skip(CardCopies::setIdCardCopies));
 	}
 	
-    /**
-     * Adding rule to map the CardCopies property.
-     */
-	@Override
-	public void addMappingsToTypeMapForDTOToEntity(ModelMapper mapper) {
-        TypeMap<CardCopiesDTO, CardCopies> propertyMapper = mapper.createTypeMap(CardCopiesDTO.class, CardCopies.class);
-        propertyMapper.addMapping(CardCopiesDTO::getIdCard, (dest, v) -> dest.getCard().setIdCard((Integer) v));		
-        propertyMapper.addMapping(CardCopiesDTO::getIdCollection, (dest, v) -> dest.getCollection().setIdCollection((Integer) v));		
-        propertyMapper.addMappings(map -> map.skip(CardCopies::setIdCardCopies));		
-	}
-    
 }
