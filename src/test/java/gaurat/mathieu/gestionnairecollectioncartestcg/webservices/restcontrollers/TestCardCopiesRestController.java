@@ -87,7 +87,6 @@ class TestCardCopiesRestController {
 		cardsCopies.add(cardCopies);
 		
 		cardCopiesDTO = new CardCopiesDTO();
-		cardCopiesDTO.setIdCardCopies(CARD_COPIES_ID);
 		cardCopiesDTO.setIdCard(CARD_ID);
 		cardCopiesDTO.setIdCollection(COLLECTION_ID);
 		cardCopiesDTO.setCopiesNumber(CARD_COPIES_NUMBER);
