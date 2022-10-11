@@ -66,10 +66,10 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
      * @return
      */
     @PutMapping("/add")
-    @ApiOperation(value = "Add a card copy. If card copies already present, add one copy. If not, create a card copies.", response = CardCopiesDTO.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: successfull research"),
-            @ApiResponse(code = 201, message = "Created: the user is successfully inserted"),
-            @ApiResponse(code = 304, message = "Not Modified: the user is unsuccessfully inserted") })
+    @ApiOperation(value = "Add a card copy. If a CardCopies is found for the requested Ids, increment the counter. If not, create a CardCopies.", response = CardCopiesDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: the CardCopies is successfully modified"),
+            @ApiResponse(code = 201, message = "Created: the CardCopies is successfully inserted"),
+            @ApiResponse(code = 304, message = "Not Modified: the CardCopies is unsuccessfully inserted") })
     public ResponseEntity<CardCopiesDTO> createOrUpdate(@RequestBody CardCopiesDTO cardCopiesDTORequest) {
     	CardCopiesDTO cardCopiesDTO;
     	CardCopies cardCopiesRequest;
