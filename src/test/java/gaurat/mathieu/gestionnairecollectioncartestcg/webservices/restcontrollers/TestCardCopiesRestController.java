@@ -39,9 +39,8 @@ class TestCardCopiesRestController {
 	private static final String USER_FORNAME = "userForname";
 	private static final String USER_EMAIL = "userEmail";
 	private static final Integer CARD_COPIES_ID = 1;
-	private static final Integer CARD_COPIES_NUMBER = 4;
-	private static final Integer CARD_COPIES_NUMBER_INCREMENTED = 5;
-	private static final Integer CARD_COPIES_NUMBER_NEW = 1;
+	private static final Integer CARD_COPIES_NUMBER = 1;
+	private static final Integer CARD_COPIES_NUMBER_INCREMENTED = 2;
 
 	
 	@Mock
@@ -52,11 +51,9 @@ class TestCardCopiesRestController {
 	
 	private static CardCopies cardCopies;
 	private static CardCopies cardCopiesIncremented;
-	private static CardCopies cardCopiesNew;
 	private static List<CardCopies> cardsCopies;
 	private static CardCopiesDTO cardCopiesDTO;
 	private static CardCopiesDTO cardCopiesDTOIncremented;
-	private static CardCopiesDTO cardCopiesDTONew;
 	private static List<CardCopiesDTO> cardsCopiesDTO;
 	
 	private static Game game;
@@ -92,12 +89,6 @@ class TestCardCopiesRestController {
 		cardCopiesIncremented.setCollection(collection);
 		cardCopiesIncremented.setCopiesNumber(CARD_COPIES_NUMBER_INCREMENTED);
 		
-		cardCopiesNew = new CardCopies();
-		cardCopiesNew.setIdCardCopies(CARD_COPIES_ID);
-		cardCopiesNew.setCard(card);
-		cardCopiesNew.setCollection(collection);
-		cardCopiesNew.setCopiesNumber(CARD_COPIES_NUMBER_NEW);
-		
 		cardCopiesDTO = new CardCopiesDTO();
 		cardCopiesDTO.setIdCard(CARD_ID);
 		cardCopiesDTO.setIdCollection(COLLECTION_ID);
@@ -107,11 +98,6 @@ class TestCardCopiesRestController {
 		cardCopiesDTOIncremented.setIdCard(CARD_ID);
 		cardCopiesDTOIncremented.setIdCollection(COLLECTION_ID);
 		cardCopiesDTOIncremented.setCopiesNumber(CARD_COPIES_NUMBER_INCREMENTED);
-		
-		cardCopiesDTONew = new CardCopiesDTO();
-		cardCopiesDTONew.setIdCard(CARD_ID);
-		cardCopiesDTONew.setIdCollection(COLLECTION_ID);
-		cardCopiesDTONew.setCopiesNumber(CARD_COPIES_NUMBER_NEW);
 		
 		cardsCopiesDTO = new ArrayList<>();
 		cardsCopiesDTO.add(cardCopiesDTO);
@@ -157,7 +143,8 @@ class TestCardCopiesRestController {
 	void testCreateOrUpdate_addOneCopieOk() {
 		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.ok(cardCopiesDTOIncremented);
 		Mockito.when(service.getCardCopies(any(), any())).thenReturn(cardCopies);
-		Mockito.when(service.updateCardCopies(cardCopiesIncremented)).thenReturn(cardCopiesIncremented);
+		//TODO: replace any() by a spy of the cardCopies ?
+		Mockito.when(service.updateCardCopies(any())).thenReturn(cardCopiesIncremented);
 		ResponseEntity<CardCopiesDTO> response = restController.createOrUpdate(cardCopiesDTO);
 		assertEquals(responseExpected, response);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -166,10 +153,10 @@ class TestCardCopiesRestController {
 	@Test
 	@DisplayName("createOrUpdate : create a CardCopie and returns CREATED")
 	void testCreateOrUpdate_createCardCopiesOk() {
-		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.status(HttpStatus.CREATED).body(cardCopiesDTONew);
+		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.status(HttpStatus.CREATED).body(cardCopiesDTO);
 		Mockito.when(service.getCardCopies(any(), any())).thenReturn(null);
 		//TODO: replace any() by a spy of the cardCopies ?
-		Mockito.when(service.saveCardCopies(any())).thenReturn(cardCopiesNew);
+		Mockito.when(service.saveCardCopies(any())).thenReturn(cardCopies);
 		ResponseEntity<CardCopiesDTO> response = restController.createOrUpdate(cardCopiesDTO);
 		assertEquals(responseExpected, response);
 		assertEquals(responseExpected.getStatusCode(), response.getStatusCode());
@@ -183,6 +170,38 @@ class TestCardCopiesRestController {
 		//TODO: replace any() by a spy of the cardCopies ?
 		Mockito.when(service.saveCardCopies(any())).thenReturn(null);
 		ResponseEntity<CardCopiesDTO> response = restController.createOrUpdate(cardCopiesDTO);
+		assertEquals(responseExpected, response);
+		assertEquals(responseExpected.getStatusCode(), response.getStatusCode());
+	}
+	
+	@Test
+	@DisplayName("deleteOrUpdate : remove one copie and returns OK")
+	void testDeleteOrUpdate_removeOneCopieOk() {
+		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.ok(cardCopiesDTO);
+		Mockito.when(service.getCardCopies(any(), any())).thenReturn(cardCopiesIncremented);
+		//TODO: replace any() by a spy of the cardCopies ?
+		Mockito.when(service.updateCardCopies(any())).thenReturn(cardCopies);
+		ResponseEntity<CardCopiesDTO> response = restController.deleteOrUpdate(cardCopiesDTOIncremented);
+		assertEquals(responseExpected, response);
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
+	
+	@Test
+	@DisplayName("deleteOrUpdate : delete a CardCopie and returns NO_CONTENT")
+	void testDeleteOrUpdate_deleteCardCopiesNoContent() {
+		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		Mockito.when(service.getCardCopies(any(), any())).thenReturn(cardCopies);
+		ResponseEntity<CardCopiesDTO> response = restController.deleteOrUpdate(cardCopiesDTO);
+		assertEquals(responseExpected, response);
+		assertEquals(responseExpected.getStatusCode(), response.getStatusCode());
+	}
+	
+	@Test
+	@DisplayName("deleteOrUpdate : do nothing and returns NOT_MODIFIED")
+	void testDeleteOrUpdate_notModifiedOk() {
+		ResponseEntity<CardCopiesDTO> responseExpected = ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+		Mockito.when(service.getCardCopies(any(), any())).thenReturn(null);
+		ResponseEntity<CardCopiesDTO> response = restController.deleteOrUpdate(cardCopiesDTO);
 		assertEquals(responseExpected, response);
 		assertEquals(responseExpected.getStatusCode(), response.getStatusCode());
 	}

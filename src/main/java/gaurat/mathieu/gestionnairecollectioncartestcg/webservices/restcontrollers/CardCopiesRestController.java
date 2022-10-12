@@ -113,7 +113,6 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
     	CardCopies cardCopiesRequest;
     	CardCopies cardCopiesResponse;
     	
-    	//CardCopies already exists => add one copy
     	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getIdCard(), cardCopiesDTORequest.getIdCollection());
         if (cardCopiesRequest != null) {
         	Integer copiesNumber = cardCopiesRequest.getCopiesNumber();
