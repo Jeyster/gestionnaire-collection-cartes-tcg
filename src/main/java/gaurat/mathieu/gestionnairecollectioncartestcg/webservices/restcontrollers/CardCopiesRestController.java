@@ -97,6 +97,41 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
     }
     
     /**
+     * Remove a card copy to an already existing CardCopies.
+     * If the the counter goes to zero, delete the CardCopies.
+     * 
+     * @return
+     */
+    @PutMapping("/remove")
+    @ApiOperation(value = "Remove a card copy. If a CardCopies is found for the requested Ids, decrement the counter. "
+    		+ "Then if the counter goes to zero, delete the CardCopies.", response = CardCopiesDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok: the CardCopies is successfully modified"),
+            @ApiResponse(code = 204, message = "Deleted: the CardCopies is successfully deleted"),
+            @ApiResponse(code = 304, message = "Not Modified: no CardCopies found") })
+    public ResponseEntity<CardCopiesDTO> deleteOrUpdate(@RequestBody CardCopiesDTO cardCopiesDTORequest) {
+    	CardCopiesDTO cardCopiesDTO;
+    	CardCopies cardCopiesRequest;
+    	CardCopies cardCopiesResponse;
+    	
+    	//CardCopies already exists => add one copy
+    	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getIdCard(), cardCopiesDTORequest.getIdCollection());
+        if (cardCopiesRequest != null) {
+        	Integer copiesNumber = cardCopiesRequest.getCopiesNumber();
+        	if (copiesNumber == 1) {
+        		service.deleteCardCopies(cardCopiesRequest);
+            	return new ResponseEntity<CardCopiesDTO>(HttpStatus.NO_CONTENT);
+        	} else {
+        		cardCopiesRequest.setCopiesNumber(copiesNumber - 1);
+        		cardCopiesResponse = service.updateCardCopies(cardCopiesRequest);
+        		cardCopiesDTO = mapEntityToDTO(cardCopiesResponse, CardCopiesDTO.class);
+        		return new ResponseEntity<CardCopiesDTO>(cardCopiesDTO, HttpStatus.OK);        		
+        	}
+        }
+        
+        return new ResponseEntity<CardCopiesDTO>(HttpStatus.NOT_MODIFIED);       
+    }
+    
+    /**
      * Adding rule to map the CardCopies property.
      * - Entity to DTO -> Ids for the DTO come from the entity Card and Collection
      * - DTO to Entity -> do not let Mapper to set idCardCopies of a new instance

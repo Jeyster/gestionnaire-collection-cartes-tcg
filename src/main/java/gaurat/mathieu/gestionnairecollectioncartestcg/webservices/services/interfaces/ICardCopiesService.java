@@ -14,6 +14,8 @@ public interface ICardCopiesService {
 	
 	public CardCopies saveCardCopies(CardCopies cardCopiesRequest);
 	
+	public void deleteCardCopies(CardCopies cardCopiesRequest);
+	
 	public CardCopies updateCardCopies(CardCopies cardCopiesRequest);
 	
 }

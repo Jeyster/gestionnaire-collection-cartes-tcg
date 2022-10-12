@@ -37,6 +37,11 @@ public class CardCopiesServiceImpl implements ICardCopiesService {
 	public CardCopies saveCardCopies(CardCopies cardCopiesRequest) {
 		return dao.save(cardCopiesRequest);
 	}
+	
+	@Override
+	public void deleteCardCopies(CardCopies cardCopiesRequest) {
+		dao.delete(cardCopiesRequest);
+	}
 
 	@Override
 	public CardCopies updateCardCopies(CardCopies cardCopiesRequest) {
