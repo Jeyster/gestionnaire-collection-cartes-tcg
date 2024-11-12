@@ -3,8 +3,6 @@ package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrolle
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.Card;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.CardDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.mappers.CardMapper;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +24,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/rest/card/api")
 @Api(value = "Card Rest Controller: contains all operations for managing cards")
-public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
+public class CardRestController {
 	
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -49,7 +47,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
     		CardDTO cardDto;
     		List<CardDTO> cardsDto = new ArrayList<>();
     		for (Card card : cards) {
-    			cardDto = mapEntityToDTO(card, CardDTO.class);
+    			cardDto = CardMapper.INSTANCE.cardToCardDTO(card);
     			cardsDto.add(cardDto);
     		}
     		
@@ -75,7 +73,7 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
         	CardDTO cardDto;
         	List<CardDTO> cardsDto = new ArrayList<>();
         	for (Card card : cards) {
-        		cardDto = mapEntityToDTO(card, CardDTO.class);
+    			cardDto = CardMapper.INSTANCE.cardToCardDTO(card);
         		cardsDto.add(cardDto);
         	}
         	
@@ -84,14 +82,5 @@ public class CardRestController implements IDTOToEntityMapping<CardDTO, Card> {
 
         return ResponseEntity.noContent().build();    
     }
-
-    /**
-     * Adding rule to map the Game property.
-     */
-	@Override
-	public void addMappingsToTypeMap(ModelMapper mapper) {
-        TypeMap<Card, CardDTO> propertyMapper = mapper.createTypeMap(Card.class, CardDTO.class);
-        propertyMapper.addMapping(src -> src.getGame().getName(), CardDTO::setGameName);		
-	}
 
 }

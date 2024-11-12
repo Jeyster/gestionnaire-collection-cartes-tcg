@@ -4,15 +4,24 @@ import java.util.Objects;
 
 public class CardDTO {
 	
-	private String gameName;
+	private Integer idCard;
+	private GameDTO gameDto;
 	private String name;
+	
+	public Integer getIdCard() {
+		return idCard;
+	}
 
-	public String getGameName() {
-		return gameName;
+	public void setIdCard(Integer idCard) {
+		this.idCard = idCard;
+	}
+
+	public GameDTO getGameDto() {
+		return gameDto;
 	}
 	
-	public void setGameName(String gameName) {
-		this.gameName = gameName;
+	public void setGameDto(GameDTO gameDto) {
+		this.gameDto = gameDto;
 	}
 
 	public String getName() {
@@ -33,7 +42,8 @@ public class CardDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		CardDTO other = (CardDTO) obj;
-		return Objects.equals(gameName, other.gameName) && Objects.equals(name, other.name);
+		return Objects.equals(gameDto, other.gameDto) && Objects.equals(idCard, other.idCard)
+				&& Objects.equals(name, other.name);
 	}
 	
 }

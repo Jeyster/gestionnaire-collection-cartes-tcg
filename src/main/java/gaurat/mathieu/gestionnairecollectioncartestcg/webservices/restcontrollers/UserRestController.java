@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.User;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.UserDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.mappers.UserMapper;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/rest/user/api")
 @Api(value = "User Rest Controller: contains all operations for managing users")
-public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
+public class UserRestController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -47,7 +47,7 @@ public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
         	UserDTO userDto;
         	List<UserDTO> usersDto = new ArrayList<>();
         	for (User user : users) {
-        		userDto = mapEntityToDTO(user, UserDTO.class);
+        		userDto = UserMapper.INSTANCE.userToUserDTO(user);
         		usersDto.add(userDto);
         	}
         	
@@ -73,11 +73,11 @@ public class UserRestController implements IDTOToEntityMapping<UserDTO, User> {
         if (existingUser != null) {
             return new ResponseEntity<UserDTO>(HttpStatus.CONFLICT);
         }
-        User userRequest = mapDTOToEntity(userDTORequest, User.class);
+        User userRequest = UserMapper.INSTANCE.userDTOToUser(userDTORequest);
         User userResponse = service.saveUser(userRequest);
         if (userResponse != null) {
-            UserDTO userDTO = mapEntityToDTO(userResponse, UserDTO.class);
-            return new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED);
+    		UserDTO userDtoResponse = UserMapper.INSTANCE.userToUserDTO(userRequest);
+            return new ResponseEntity<UserDTO>(userDtoResponse, HttpStatus.CREATED);
         }
         return new ResponseEntity<UserDTO>(HttpStatus.NOT_MODIFIED);
     }

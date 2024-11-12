@@ -3,8 +3,6 @@ package gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrolle
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gaurat.mathieu.gestionnairecollectioncartestcg.model.CardCopies;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.dto.CardCopiesDTO;
-import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.restcontrollers.interfaces.IDTOToEntityMapping;
+import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.mappers.CardCopiesMapper;
 import gaurat.mathieu.gestionnairecollectioncartestcg.webservices.services.implementations.CardCopiesServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +26,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/rest/cardCopies/api")
 @Api(value = "Card Copies Rest Controller: contains all operations for managing cards copies")
-public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesDTO, CardCopies> {
+public class CardCopiesRestController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(CardRestController.class);
     
@@ -49,7 +47,7 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
         	CardCopiesDTO cardCopiesDto;
         	List<CardCopiesDTO> cardsCopiesDto = new ArrayList<>();
         	for (CardCopies cardCopies : cardsCopies) {
-        		cardCopiesDto = mapEntityToDTO(cardCopies, CardCopiesDTO.class);
+        		cardCopiesDto = CardCopiesMapper.INSTANCE.cardCopiesToCardCopiesDto(cardCopies);
         		cardsCopiesDto.add(cardCopiesDto);
         	}
         	
@@ -76,20 +74,20 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
     	CardCopies cardCopiesResponse;
     	
     	//CardCopies already exists => add one copy
-    	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getIdCard(), cardCopiesDTORequest.getIdCollection());
+    	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getCardDto().getIdCard(), cardCopiesDTORequest.getCollectionDto().getIdCollection());
         if (cardCopiesRequest != null) {
         	cardCopiesRequest.setCopiesNumber(cardCopiesRequest.getCopiesNumber() + 1);
             cardCopiesResponse = service.updateCardCopies(cardCopiesRequest);
-        	cardCopiesDTO = mapEntityToDTO(cardCopiesResponse, CardCopiesDTO.class);
+        	cardCopiesDTO = CardCopiesMapper.INSTANCE.cardCopiesToCardCopiesDto(cardCopiesResponse);
         	return new ResponseEntity<CardCopiesDTO>(cardCopiesDTO, HttpStatus.OK);
         }
         
         //CardCopies does not exist => create it with copiesNumber = 1
-        cardCopiesRequest = mapDTOToEntity(cardCopiesDTORequest, CardCopies.class);
+        cardCopiesRequest = CardCopiesMapper.INSTANCE.cardCopiesDtoToCardCopies(cardCopiesDTORequest);
         cardCopiesRequest.setCopiesNumber(1);
         cardCopiesResponse = service.saveCardCopies(cardCopiesRequest);
         if (cardCopiesResponse != null) {
-        	cardCopiesDTO = mapEntityToDTO(cardCopiesResponse, CardCopiesDTO.class);
+        	cardCopiesDTO = CardCopiesMapper.INSTANCE.cardCopiesToCardCopiesDto(cardCopiesResponse);
             return new ResponseEntity<CardCopiesDTO>(cardCopiesDTO, HttpStatus.CREATED);
         }
         
@@ -113,7 +111,7 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
     	CardCopies cardCopiesRequest;
     	CardCopies cardCopiesResponse;
     	
-    	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getIdCard(), cardCopiesDTORequest.getIdCollection());
+    	cardCopiesRequest = service.getCardCopies(cardCopiesDTORequest.getCardDto().getIdCard(), cardCopiesDTORequest.getCollectionDto().getIdCollection());
         if (cardCopiesRequest != null) {
         	Integer copiesNumber = cardCopiesRequest.getCopiesNumber();
         	if (copiesNumber == 1) {
@@ -122,26 +120,12 @@ public class CardCopiesRestController implements IDTOToEntityMapping<CardCopiesD
         	} else {
         		cardCopiesRequest.setCopiesNumber(copiesNumber - 1);
         		cardCopiesResponse = service.updateCardCopies(cardCopiesRequest);
-        		cardCopiesDTO = mapEntityToDTO(cardCopiesResponse, CardCopiesDTO.class);
+        		cardCopiesDTO = CardCopiesMapper.INSTANCE.cardCopiesToCardCopiesDto(cardCopiesResponse);
         		return new ResponseEntity<CardCopiesDTO>(cardCopiesDTO, HttpStatus.OK);        		
         	}
         }
         
         return new ResponseEntity<CardCopiesDTO>(HttpStatus.NOT_MODIFIED);       
     }
-    
-    /**
-     * Adding rule to map the CardCopies property.
-     * - Entity to DTO -> Ids for the DTO come from the entity Card and Collection
-     * - DTO to Entity -> do not let Mapper to set idCardCopies of a new instance
-     */
-	@Override
-	public void addMappingsToTypeMap(ModelMapper mapper) {
-        TypeMap<CardCopies, CardCopiesDTO> propertyMapperEntityToDTO = mapper.createTypeMap(CardCopies.class, CardCopiesDTO.class);
-        propertyMapperEntityToDTO.addMapping(src -> src.getCard().getIdCard(), CardCopiesDTO::setIdCard);		
-        propertyMapperEntityToDTO.addMapping(src -> src.getCollection().getIdCollection(), CardCopiesDTO::setIdCollection);	
-        TypeMap<CardCopiesDTO, CardCopies> propertyMapperDTOToEntity = mapper.createTypeMap(CardCopiesDTO.class, CardCopies.class);
-        propertyMapperDTOToEntity.addMappings(map -> map.skip(CardCopies::setIdCardCopies));
-	}
 	
 }

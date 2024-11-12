@@ -7,7 +7,7 @@ public class UserDTO {
 	private String name;
 	private String forname;
 	private String email;
-	
+
 	public String getName() {
 		return name;
 	}
